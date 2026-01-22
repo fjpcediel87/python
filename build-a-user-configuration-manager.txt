@@ -1,0 +1,49 @@
+** start of main.py **
+
+def add_setting(dictio, tup):
+    key, val = tup 
+    key = key.lower()
+    val = val.lower()   
+    if key in dictio.keys():        
+        return f'Setting \'{key}\' already exists! Cannot add a new setting with this name.'
+    else:
+        dictio.update(dict([(key, val)]))
+        print(dictio)
+        return f'Setting \'{key}\' added with value \'{val}\' successfully!'
+def update_setting(dictio, tup):
+    key, val = tup 
+    key = key.lower()
+    val = val.lower()
+    if key in dictio.keys():
+        dictio.update(dict([(key, val)]))
+        print(dictio)        
+        return f'Setting \'{key}\' updated to \'{val}\' successfully!'
+    else:        
+        return f'Setting \'{key}\' does not exist! Cannot update a non-existing setting.'
+def delete_setting(dictio, key):
+    key = key.lower()
+    if key in dictio.keys():
+        dictio.pop(key)
+        return f'Setting \'{key}\' deleted successfully!'
+    else:
+        return f'Setting not found!'
+def view_settings(dictio):
+    if dictio  == {}:
+        return 'No settings available.'
+    else:
+        result = 'Current User Settings:\n'
+        for key, val in dictio.items():
+            result += f'{key.title()}: {val}\n'
+        return result
+
+test_settings = {
+    'greet': 'hi',
+    #'name' : 'Mia'
+}
+#print(add_setting({'theme': 'light'}, ('THEME', 'dark')))
+#print(update_setting({'theme': 'light'}, ('volume', 'high')))
+#print(view_settings(test_settings))
+print(delete_setting({'theme': 'light'}, 'theme'))
+
+** end of main.py **
+
