@@ -1,0 +1,134 @@
+** start of main.py **
+
+import math as m
+class Category:
+    def __init__(self, name):
+        self.name = name
+        self.ledger = []
+        self.balance = 0
+        self.withdrawal = 0
+
+    def deposit(self, amount, description = ""):
+        obj = {'amount': amount, 'description' : description}
+        self.ledger.append(obj)
+        self.balance += amount
+    
+    def withdraw(self, amount, description = ""):
+        obj = {'amount': -amount, 'description' : description}
+        self.ledger.append(obj)
+        if self.check_funds(amount):
+            self.balance -= amount
+            self.withdrawal += amount
+            return True
+        else:
+            return False
+    
+    def get_balance(self):
+        return self.balance
+    
+    def transfer(self, amount, another):
+        tr = self.withdraw(amount, 'Transfer to ' + another.name)
+        another.deposit(amount, 'Transfer from ' + self.name)
+        return self.check_funds(amount)
+    
+    def check_funds(self, amount):
+        if self.balance >= amount:            
+            return True
+        else:
+            return False
+        
+    def __str__(self):
+        length = len(self.name)
+        starNum = int((30 - length)/2)
+        char = '*'
+        ledgerLen = len(self.ledger)
+        summary = f'{char*starNum}{self.name}{char*starNum}\n'
+        for obj in self.ledger:
+            t1 = obj.get('description')[0:23]
+            t2 = format(obj.get('amount'),'.2f')[0:7]
+            l1 = len(t1)
+            l2 = len(t2)
+            summary += f"{t1}{' '*(30-l1-l2)}{t2}\n"
+        summary += f'Total: {self.balance}'
+        return summary
+        
+        
+        
+
+
+    
+    
+
+def create_spend_chart(categories):
+    chart = 'Percentage spent by category\n'
+    maxL = len(chart)    
+    axis = []
+    lCat = len(categories)
+    x_axis = f'{" "*4}-{"-"*3*lCat}\n'    
+    x_label = ''
+
+    def totalC(cat):
+        return float(format(cat.withdrawal,'.2f'))
+    def perC(cat):
+        total = sum(list(map(totalC, categories)))
+        return m.floor(cat.withdrawal/total*10)*10
+    def leng(cat):
+        return len(cat.name)
+    #def lena(e):
+    #    return len(e)
+    def naming(cat):
+        return cat.name   
+    perc = list(map(perC, categories))
+    lenC = list(map(leng, categories))
+    nameL = list(map(naming, categories))
+    
+    for i in range(0,11):
+        x = str((10 - i)*10)
+        l = len(x)        
+        xi = f"{' '*(3-l)}{x}| "
+        for j in perc:
+            ix = 10 - j/10
+            if i < ix:
+                xi += ' '*3
+            else:
+                xi += 'o  '
+        
+        xi += "\n"
+        chart += xi
+    for u in range(0, max(lenC)):
+        
+        x_label += f'{" "*5}'
+        for j in range(0, len(lenC)):
+            if u < lenC[j]:                
+                x_label += f'{nameL[j][u]}  '
+            else:
+                x_label += f'{" "*3}'
+        print(x_label)
+        
+        
+        x_label += "\n"
+    
+    
+
+    chart += x_axis
+    chart += x_label
+    lChart = len(chart)
+    #array = chart[0:lChart -1].split("\n")
+    #lenArray = list(map(lena, array))
+
+
+    return chart[0:lChart -1]
+
+food = Category('Food')
+food.deposit(1000, 'deposit')
+food.withdraw(10.15, 'groceries')
+food.withdraw(15.89, 'restaurant and more food for dessert')
+clothing = Category('Clothing')
+auto = Category('Auto')
+food.transfer(50, clothing)
+clothing.transfer(25, auto)
+print(food)
+print(create_spend_chart([food, clothing, auto]))
+
+** end of main.py **
+
