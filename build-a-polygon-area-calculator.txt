@@ -1,0 +1,75 @@
+** start of main.py **
+
+from abc import ABC, abstractmethod
+import math as m
+class Rectangle:
+    def __init__(self, width, height) -> None:
+        self.width = width
+        self.height = height
+    
+    def set_width(self, new_width):
+        self.width = new_width
+    def set_height(self, new_height):
+        self.height = new_height
+    def get_area(self) -> float:
+        return self.height*self.width
+    def get_perimeter(self) -> float:
+        return 2*self.height + 2*self.width
+    def get_diagonal(self) -> float:
+        return ((self.height)**2 + (self.width)**2)**0.5
+    def get_picture(self) -> str:
+        if self.height > 50 or self.width > 50:
+            return 'Too big for picture.'
+        pic = ''
+        for i in range(0, self.height):
+            pic += f'{"*"*self.width}\n'
+        return pic
+    def get_amount_inside(self, shape):
+        return m.floor(self.get_area() / shape.get_area())
+    def __repr__(self):
+        return f"Rectangle(width={self.width}, height={self.height})"
+
+
+class Square(Rectangle):
+    def __init__(self, side, width =0, height=0) -> None:
+        super().__init__(width, height)
+        self.width = side
+        self.height = side       
+        self.side = side
+    def set_width(self, new_width):
+        self.width = new_width
+        self.side = new_width
+    def set_height(self, new_height):
+        self.height = new_height
+        self.side = new_height
+    def set_side(self, new_side):
+        self.side = new_side
+        self.width = new_side
+        self.height = new_side
+    
+    def __repr__(self):
+        return f"Square(side={self.side})"
+
+
+rect = Rectangle(10, 5)
+print(rect.get_area())
+rect.set_height(3)
+print(rect.get_perimeter())
+print(rect)
+print(rect.get_picture())
+
+sq = Square(9)
+print(sq.get_area())
+sq.set_side(4)
+print(sq.get_diagonal())
+print(sq)
+print(sq.get_picture())
+
+rect.set_height(8)
+rect.set_width(16)
+print(rect.get_amount_inside(sq))
+
+print(Rectangle(2,3).get_amount_inside(Rectangle(3, 6)))
+
+** end of main.py **
+
