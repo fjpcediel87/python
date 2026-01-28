@@ -1,0 +1,43 @@
+** start of main.py **
+
+class HashTable:
+    def __init__(self):
+        self.collection = {}
+    
+    def hash(self, string):
+        
+        result = sum([ord(char) for char in string])
+        return result 
+
+        
+    def add(self, arg1, arg2):
+        keyVal = self.hash(arg1)
+        if keyVal in self.collection:
+            dictionary = self.collection[keyVal]
+            dictionary.update({arg1: arg2})
+            self.collection.update({keyVal: dictionary})
+        else:
+            self.collection.update({keyVal: {arg1: arg2}})
+    def remove(self, key):
+        keyHash = self.hash(key)
+        if keyHash in self.collection:            
+            dictionary = self.collection[keyHash]
+            if key in dictionary:
+                dictionary.pop(key, self.lookup(key))
+            else:
+                return None
+            self.collection.update({keyHash: dictionary})
+        else:
+            return None
+    def lookup(self, key):
+        keyHash = self.hash(key)
+        if keyHash in self.collection:
+            if key in self.collection[keyHash]:
+                return self.collection[keyHash][key]
+        else:
+            return None
+        
+print(HashTable().hash('golf'))
+
+** end of main.py **
+
