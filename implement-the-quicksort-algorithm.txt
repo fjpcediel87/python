@@ -1,0 +1,18 @@
+** start of main.py **
+
+def quick_sort(lista):
+    if len(lista) <=1:
+        return lista
+    else:
+        pivot = lista[0]
+        leL = [x for x in lista[1:] if x < pivot]
+        gtL = [x for x in lista[1:] if x > pivot]
+        eqL = [x for x in lista if x == pivot]        
+        leL = quick_sort(leL)        
+        gtL = quick_sort(gtL)      
+        lista = leL + eqL + gtL
+        
+    return lista 
+
+** end of main.py **
+
