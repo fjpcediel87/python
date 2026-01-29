@@ -1,0 +1,45 @@
+** start of main.py **
+
+def square_root_bisection(a, e = 0.1, i=4):
+    #sqrt(a)= b + e after i
+    maxIt = i
+    if a < 0:
+        raise ValueError('Square root of negative number is not defined in real numbers')
+    elif a == 0 or a == 1:
+        print(f'The square root of {a} is {a}')
+        return a
+    elif a > 1:
+        low = 0
+        high = a
+    else:
+        low = a
+        high = 1 
+    m = (low + high)/2
+    path = [m]   
+    while abs(m**2 - a) > e**2 and i > 0:
+        i -= 1      
+        if m**2 > a:
+            high = m - e           
+        else:
+            low = m + e
+            
+        m = (low + high)/2
+        path.append(m)
+    print(path, len(path))
+    if abs(m**2 - a) <= 2*e:
+        print(f'The square root of {a} is approximately {m}')
+        return m
+    else:
+        print(f'Failed to converge within {maxIt} iterations')
+        return None
+square_root_bisection(225, 1e-7, 10)
+        
+
+
+
+    
+    
+
+
+** end of main.py **
+
