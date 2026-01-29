@@ -1,0 +1,15 @@
+** start of main.py **
+
+def selection_sort(lista):
+    if len(lista) <=1:
+        return    
+    for i in range(len(lista)):
+        minVal = min(lista[i:])
+        if lista[i] != minVal:
+            minIndex = lista.index(minVal, i)
+            lista[i], lista[minIndex] = lista[minIndex], lista[i]
+        
+    return lista
+
+** end of main.py **
+
