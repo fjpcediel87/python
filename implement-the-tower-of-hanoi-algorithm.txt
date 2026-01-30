@@ -1,0 +1,31 @@
+** start of main.py **
+
+def hanoi_solver(n):    
+    def hard_core(n, source = 0 , target = 2, auxiliary = 1, bd = False):
+        #print(f'source: {source}, target: {target}, auxiliary: {auxiliary}')
+        if not bd:
+            global board
+            board = [[i for i in range(n, 0, -1)], [], []]
+            global stringResult        
+            stringResult = f"{' '.join([str(row) for row in board])}\n"
+            global t
+            t = n
+            bd = True    
+        if n == 1:
+            board[source].pop()
+            board[target].append(n)
+            stringResult += f"{' '.join([str(row) for row in board])}\n"
+            #print(f"Move disk 1 from {source} to {target}")
+            return
+        hard_core(n - 1, source, auxiliary, target, bd)
+        board[source].pop()
+        board[target].append(n)
+        stringResult += f"{' '.join([str(row) for row in board])}\n"   
+        #print(f"Move disk {n} from {source} to {target}")
+        hard_core(n - 1, auxiliary, target, source, bd)
+        if n == t:
+            return stringResult.strip()
+    return hard_core(n)
+
+** end of main.py **
+
