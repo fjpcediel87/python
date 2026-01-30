@@ -1,0 +1,22 @@
+** start of main.py **
+
+def verify_card_number(digitsString):
+    if " " in digitsString:
+        digitsString=digitsString.replace(" ","")
+    if "-" in digitsString:
+        digitsString= digitsString.replace("-","")
+    l = len(digitsString) - 1
+    digitsString = list(digitsString)
+    a = -1 if l % 2 == 0 else -2
+    for i in list(range(l-1,a,-2)):
+        digitsString[0] = int(digitsString[0]) 
+        digitsString[i+1] = int(digitsString[i+1]) 
+        digitsString[i] = int(digitsString[i]) * 2
+        if digitsString[i] > 9:
+            digitsString[i] = digitsString[i] - 9        
+           
+    return 'VALID!' if sum(digitsString) % 10 == 0 else 'INVALID!'
+print(verify_card_number('4111-1111-1111-1111'))
+
+** end of main.py **
+
