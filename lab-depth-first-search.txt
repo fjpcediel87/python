@@ -1,0 +1,20 @@
+** start of main.py **
+
+def dfs(adjMatrix, nodeLabel):
+    visited = set()
+    result = []
+
+    def dfs_helper(node):
+        if node in visited:
+            return
+        visited.add(node)
+        result.append(node)
+        for neighbor, is1 in enumerate(adjMatrix[node]):
+            if is1 and neighbor not in visited:
+                dfs_helper(neighbor)
+
+    dfs_helper(nodeLabel)
+    return result 
+
+** end of main.py **
+
