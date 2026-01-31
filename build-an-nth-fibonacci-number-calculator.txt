@@ -1,0 +1,15 @@
+** start of main.py **
+
+def fibonacci(n):
+    sequence = [0, 1]
+    if n <=1:
+        return n
+    for n in range(2,n+1):
+        sequence += [sequence[n-2] + sequence[n-1]]
+    return sequence[n]
+print(fibonacci(0))
+
+
+
+** end of main.py **
+
