@@ -1,0 +1,33 @@
+** start of main.py **
+
+def dfs_n_queens(n):
+    if n < 1:
+        return []
+    result = []
+    def isNotUnderAttack(row, col):
+        for prev_row in range(row):
+            if (cols[prev_row] == col or
+                cols[prev_row] - prev_row == col - row or
+                cols[prev_row] + prev_row == col + row):
+                return False
+        return True
+    def place_queen(row):
+        if row == n:
+            board = []
+            for i in range(n):                
+                row_str = cols[i]
+                board.append(row_str)
+            result.append(board)
+            return
+        for col in range(n):
+            if isNotUnderAttack(row, col):
+                cols[row] = col
+                place_queen(row + 1)
+                cols[row] = -1
+    cols = [-1] * n
+    place_queen(0)
+    return result
+    
+
+** end of main.py **
+
